@@ -9,71 +9,70 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-  stages:
-    - stage: build
-      jobs:
-        - job: initilize
-          steps:
-          - task: NodeTool@0
-            inputs:
-              versionSpec: '10.x'
-            displayName: 'Install Node.js'
-          - script: |
+stages:
+  - stage: build
+    jobs:
+      - job: first
+        steps:
+        - task: NodeTool@0
+          displayName: 'Install Node.js'
+          inputs:
+            versionSpec: '10.x'
+        - script: |
               npm install
               npm run build
-            displayName: 'npm install and build'
-        - job: second
-          steps:
-          - task: NodeTool@0
-            inputs:
-              scriptSource: 'inline'
-              script: 'print("In first stage, job two")'
-        - job: third
-          steps:
-          - task: NodeTool@0
-            inputs:
-              scriptSource: 'inline'
-              script: 'print("In first stage, job three")'
-    - stage: test
-      jobs:
-        - job: first
-          steps:
-          - task: NodeTool@0
-            inputs:
-              scriptSource: 'inline'
-              script: 'print("In second stage, job one")'
-        - job: second
-          steps:
-          - task: NodeTool@0
-            inputs:
-              scriptSource: 'inline'
-              script: 'print("In second stage, job two")'
-        - job: third
-          steps:
-          - task: NodeTool@0
-            inputs:
-              scriptSource: 'inline'
-              script: 'print("In second stage, job three")'
-    - stage: finish
-      jobs:
-        - job: first
-          steps:
-          - task: NodeTool@0
-            inputs:
-              scriptSource: 'inline'
-              script: 'print("In third stage, job one")'
-        - job: second
-          steps:
-          - task: NodeTool@0
-            inputs:
-              scriptSource: 'inline'
-              script: 'print("In third stage, job two")'
-        - job: third
-          steps:
-          - task: NodeTool@0
-            inputs:
-              scriptSource: 'inline'
-              script: 'print("In third stage, job three")'
+      - job: second
+        steps:
+        - task: PythonScript@0
+          inputs:
+            scriptSource: 'inline'
+            script: 'print("In first stage, job two")'
+      - job: third
+        steps:
+        - task: PythonScript@0
+          inputs:
+            scriptSource: 'inline'
+            script: 'print("In first stage, job three")'
+  - stage: test
+    jobs:
+      - job: first
+        steps:
+        - task: PythonScript@0
+          inputs:
+            scriptSource: 'inline'
+            script: 'print("In second stage, job one")'
+      - job: second
+        steps:
+        - task: PythonScript@0
+          inputs:
+            scriptSource: 'inline'
+            script: 'print("In second stage, job two")'
+      - job: third
+        steps:
+        - task: PythonScript@0
+          inputs:
+            scriptSource: 'inline'
+            script: 'print("In second stage, job three")'
+  - stage: finish
+    jobs:
+      - job: first
+        steps:
+        - task: PythonScript@0
+          inputs:
+            scriptSource: 'inline'
+            script: 'print("In third stage, job one")'
+      - job: second
+        steps:
+        - task: PythonScript@0
+          inputs:
+            scriptSource: 'inline'
+            script: 'print("In third stage, job two")'
+      - job: third
+        steps:
+        - task: PythonScript@0
+          inputs:
+            scriptSource: 'inline'
+            script: 'print("In third stage, job three")'
 
 
 
