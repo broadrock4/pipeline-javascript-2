@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: build
+  - stage: initialize 
     jobs:
       - job: first
         steps:
@@ -53,7 +53,7 @@ stages:
           inputs:
             scriptSource: 'inline'
             script: 'print("In second stage, job three")'
-  - stage: finish
+  - stage: deploy
     jobs:
       - job: first
         steps:
